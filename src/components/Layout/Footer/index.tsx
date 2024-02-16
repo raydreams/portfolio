@@ -20,7 +20,7 @@ export default function Footer() {
                 {Socials.map((props: SocialProps, index: number) => (
                     <Social key={index} icon={props.icon} href={props.href} />
                 ))}
-                <a href="github.com/Naibuu/portfolio">Source Code</a>
+                <a href="https://github.com/Naibuu/portfolio">Source Code</a>
             </div>
         </StyledFooter>
     )
