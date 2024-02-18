@@ -18,6 +18,14 @@ const GlobalStyle = createGlobalStyle`
             color: inherit;
         }
 
+        img {
+            -webkit-user-select: none !important;
+            -khtml-user-select: none !important;
+            -moz-user-select: none !important;
+            -o-user-select: none !important;
+            user-select: none !important;
+        }
+
         :root {
             --ui-lightgray: #b3b7be;
             --ui-green: #2ed1c1;

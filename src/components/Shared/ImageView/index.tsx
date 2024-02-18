@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 /** Hooks */
-import { useAppSelector, useAppDispatch } from '~hooks/index'
+import { useAppSelector } from '~hooks/useAppSelector'
+import { useAppDispatch } from '~hooks/useAppDispatch'
 import { setImageView } from '~store/metadata'
 
 export default function ImageView() {

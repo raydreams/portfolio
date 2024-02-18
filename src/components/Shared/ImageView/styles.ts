@@ -40,8 +40,7 @@ export const StyledImageView = styled(motion.div)`
 
     > img {
         width: 100%;
-        max-width: 600px;
-        border-radius: 8px;
+        max-width: 1000px;
     }
 
     > div {

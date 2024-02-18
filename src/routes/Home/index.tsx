@@ -1,16 +1,25 @@
-import { PageWrapper, StyledLanding } from './styles'
+import {
+    PageWrapper,
+    StyledLanding,
+    StyledProjects,
+    ProjectList,
+    ProjectsAbout,
+} from './styles'
 import { motion } from 'framer-motion'
 
 /** Components */
 import Logo from '~components/Shared/Logo'
 import Mail from '~components/Shared/Mail'
 import Social from '~components/Shared/Social'
+import Project from '~components/Shared/Project'
 
 /** Typings */
 import { SocialProps } from '~components/Shared/Social/types'
+import { ProjectProps } from '~components/Shared/Project/types'
 
 /** Data */
 import Socials from '~data/Socials'
+import Projects from '~data/Projects'
 
 export default function Home() {
     return (
@@ -44,6 +53,25 @@ export default function Home() {
                     </div>
                 </motion.div>
             </StyledLanding>
+            <StyledProjects>
+                <ProjectsAbout>
+                <h2>Here are some of my projects.</h2>
+                <p>
+                    My journey began in 2019, and since then I've created many
+                    notable projects. Here are some of the notable ones.
+                </p>
+                </ProjectsAbout>
+                <ProjectList>
+                    {Projects.map((props: ProjectProps, index: number) => (
+                        <Project
+                            key={index}
+                            title={props.title}
+                            description={props.description}
+                            images={props.images}
+                        />
+                    ))}
+                </ProjectList>
+            </StyledProjects>
         </PageWrapper>
     )
 }
