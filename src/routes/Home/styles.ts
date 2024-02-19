@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Column } from '~components/Shared/Column'
 
 export const PageWrapper = styled('div')`
     position: relative;
@@ -63,37 +62,5 @@ export const StyledLanding = styled('div')`
             flex-direction: column;
             gap: 2px;
         }
-    }
-`
-
-export const StyledProjects = styled('div')`
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-`
-
-export const ProjectsAbout = styled(Column)`
-    text-align: justify;
-    
-    p {
-        color: var(--ui-lightgray);
-        line-height: 25px;
-        font-size: 13px;
-        font-weight: 500;
-    }
-
-    @media (max-width: 600px) {
-        text-align: center;
-    }
-`
-
-export const ProjectList = styled('div')`
-    display: flex;
-    gap: 12px;
-
-    @media (max-width: 600px) {
-        padding: 15px;
-        flex-direction: column;
-        justify-content: center;
     }
 `
