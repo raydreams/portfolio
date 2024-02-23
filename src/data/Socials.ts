@@ -4,11 +4,11 @@ import { faXTwitter, faGithub } from '@fortawesome/free-brands-svg-icons'
 const Socials: SocialProps[] = [
     {
         icon: faXTwitter,
-        href: 'https://twitter.com/naibuuhawkwer',
+        href: 'https://twitter.com/enjoyingsmain',
     },
     {
         icon: faGithub,
-        href: 'https://github.com/Naibuu',
+        href: 'https://github.com/heyitsleo',
     },
 ]
 
