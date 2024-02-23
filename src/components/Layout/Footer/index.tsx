@@ -12,8 +12,7 @@ export default function Footer() {
         <StyledFooter>
             <div>
                 <p>
-                    Copyright © {new Date().getFullYear()}. Naibuu. All rights
-                    reserved.
+                    Copyright © {new Date().getFullYear()}. lehoe. All rights reserved.
                 </p>
             </div>
             <div>
