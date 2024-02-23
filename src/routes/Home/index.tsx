@@ -28,7 +28,7 @@ export default function Home() {
                     transition={{ delay: 0.1 }}
                 >
                     A not so smart developer from Canada. Skilled
-                    in being cool, coding a bit, and being not so smart.
+                    in being cool, coding a bit, and being not so smart in life.
                 </motion.p>
                 <motion.div
                     initial={{ opacity: 0 }}
