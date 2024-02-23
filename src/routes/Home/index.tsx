@@ -27,15 +27,15 @@ export default function Home() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.1 }}
                 >
-                    A hobby programmer and student from Greece who specializes
-                    in frontend web development.
+                    A not so smart developer from Canada. Skilled
+                    in being cool idk man.
                 </motion.p>
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
                 >
-                    <Mail to="contact@naibuu.dev" />
+                    <Mail to="leo@starnode.host" />
                     <div>
                         {Socials.map((props: SocialProps, index: number) => (
                             <Social
