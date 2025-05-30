@@ -8,6 +8,8 @@ import ImageView from '~components/Shared/ImageView'
 
 /** Routes */
 import Home from '~routes/Home'
+import About from '~routes/About'
+import Career from '~routes/Career'
 import NotFound from '~routes/404'
 
 export default function App() {
@@ -17,6 +19,8 @@ export default function App() {
             <Layout>
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/career" element={<Career />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Layout>

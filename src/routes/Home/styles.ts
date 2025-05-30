@@ -64,3 +64,40 @@ export const StyledLanding = styled('div')`
         }
     }
 `
+
+export const StyledShowcase = styled('div')`
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 100px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    h2 {
+        font-size: 32px;
+        font-weight: 600;
+        color: white;
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    @media (max-width: 1000px) {
+        padding: 60px 20px;
+        
+        h2 {
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .projects-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+`
