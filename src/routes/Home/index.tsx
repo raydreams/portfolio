@@ -95,13 +95,20 @@ const ProjectCard = styled(motion.div)`
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s ease;
+    position: relative;
 
     &:hover {
+        background: rgba(255, 255, 255, 0.05);
         transform: translateY(-5px);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 
-        img {
+        .project-image {
             transform: scale(1.05);
+        }
+
+        .project-links {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 `
@@ -110,12 +117,58 @@ const ProjectImage = styled('div')`
     width: 100%;
     aspect-ratio: 16/9;
     overflow: hidden;
+    position: relative;
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.3s ease;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    &:hover::after {
+        opacity: 1;
+    }
+`
+
+const ProjectLinks = styled('div')`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: flex;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1;
+`
+
+const ProjectLink = styled('a')`
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
     }
 `
 
@@ -144,31 +197,49 @@ const ProjectTags = styled('div')`
 `
 
 const ProjectTag = styled('span')`
-    padding: 4px 12px;
+    padding: 6px 12px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     font-size: 13px;
     color: var(--ui-lightgray);
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+    }
 `
 
 const projects = [
     {
-        title: "AI-Powered Task Manager",
-        description: "A modern task management application with AI-driven insights and smart scheduling capabilities.",
+        title: "Portfolio Website",
+        description: "A modern, responsive portfolio website built with React, TypeScript, and Styled Components. Features smooth animations, dark theme, and a clean design.",
+        image: "/projects/portfolio.jpg",
+        tags: ["React", "TypeScript", "Styled Components", "Framer Motion"],
+        links: [
+            { label: "View Live", href: "https://morani.dev" },
+            { label: "Source Code", href: "https://github.com/heyitsleo/portfolio" }
+        ]
+    },
+    {
+        title: "Task Management App",
+        description: "A full-stack task management application with real-time updates, drag-and-drop interface, and team collaboration features.",
         image: "/projects/task-manager.jpg",
-        tags: ["React", "Node.js", "TensorFlow", "MongoDB"]
+        tags: ["Next.js", "Node.js", "MongoDB", "WebSocket"],
+        links: [
+            { label: "View Demo", href: "https://tasks.morani.dev" },
+            { label: "Source Code", href: "https://github.com/heyitsleo/task-manager" }
+        ]
     },
     {
-        title: "Real-time Collaboration Platform",
-        description: "A collaborative workspace platform with real-time editing, chat, and file sharing capabilities.",
-        image: "/projects/collab-platform.jpg",
-        tags: ["Next.js", "WebSocket", "PostgreSQL", "AWS"]
-    },
-    {
-        title: "Smart Home Dashboard",
-        description: "An intuitive dashboard for managing smart home devices with automation and analytics.",
-        image: "/projects/smart-home.jpg",
-        tags: ["React", "IoT", "Python", "GraphQL"]
+        title: "AI Image Generator",
+        description: "An AI-powered image generation tool that creates unique artwork based on text prompts using machine learning models.",
+        image: "/projects/ai-art.jpg",
+        tags: ["Python", "TensorFlow", "React", "AWS"],
+        links: [
+            { label: "Try It Out", href: "https://ai-art.morani.dev" },
+            { label: "Source Code", href: "https://github.com/heyitsleo/ai-art-generator" }
+        ]
     }
 ]
 
@@ -189,7 +260,7 @@ export default function Home() {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <Mail to="rehan@morani.dev" />
+                        <Mail to="morani.rehann@gmail.com" />
                         <SocialLinks>
                             {Socials.map((props: SocialProps, index: number) => (
                                 <Social
@@ -222,8 +293,20 @@ export default function Home() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: index * 0.1 }}
                             >
-                                <ProjectImage>
+                                <ProjectImage className="project-image">
                                     <img src={project.image} alt={project.title} />
+                                    <ProjectLinks className="project-links">
+                                        {project.links.map(link => (
+                                            <ProjectLink 
+                                                key={link.label} 
+                                                href={link.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {link.label}
+                                            </ProjectLink>
+                                        ))}
+                                    </ProjectLinks>
                                 </ProjectImage>
                                 <ProjectContent>
                                     <h3>{project.title}</h3>
