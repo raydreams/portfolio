@@ -10,6 +10,7 @@ import ImageView from '~components/Shared/ImageView'
 import Home from '~routes/Home'
 import About from '~routes/About'
 import Career from '~routes/Career'
+import Resume from '~routes/Resume'
 import NotFound from '~routes/404'
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/career" element={<Career />} />
+                    <Route path="/resume" element={<Resume />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Layout>

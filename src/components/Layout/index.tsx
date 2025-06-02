@@ -1,6 +1,7 @@
 import { type ReactNode, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from 'react-router-dom'
+import { FileText } from 'lucide-react'
 
 /** Components */
 import Lightbar from './Lightbar'
@@ -96,6 +97,9 @@ const NavLinks = styled('div')`
         border-radius: 16px;
         background: rgba(255, 255, 255, 0.03);
         white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 8px;
 
         &:hover {
             color: white;
@@ -106,6 +110,11 @@ const NavLinks = styled('div')`
         &.active {
             color: white;
             background: rgba(255, 255, 255, 0.12);
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
         }
     }
 
@@ -158,6 +167,10 @@ export default function Layout({ children }: { children: ReactNode }) {
                         </Link>
                         <Link to="/career" className={location.pathname === '/career' ? 'active' : ''}>
                             Career
+                        </Link>
+                        <Link to="/resume" className={location.pathname === '/resume' ? 'active' : ''}>
+                            <FileText size={16} />
+                            Resume
                         </Link>
                     </NavLinks>
                 </NavContent>
