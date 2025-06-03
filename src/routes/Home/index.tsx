@@ -24,7 +24,7 @@ const HeroSection = styled('section')`
     position: relative;
     overflow: hidden;
     background: linear-gradient(
-        to bottom,
+        to right,
         var(--bg-primary),
         var(--bg-secondary)
     );
