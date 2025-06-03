@@ -4,11 +4,6 @@ import { ArrowRight, Github, Globe, Code2, Terminal, Database, Server } from 'lu
 
 /** Components */
 import Logo from '~components/Shared/Logo'
-import Social from '~components/Shared/Social'
-import { useTheme } from '~context/ThemeContext'
-
-/** Data */
-import Socials from '~data/Socials'
 
 const PageWrapper = styled('div')`
     position: relative;
@@ -138,7 +133,7 @@ const SectionTitle = styled(motion.h2)`
     }
 `
 
-const ProjectGrid = styled('div')`
+const ProjectGrid = styled(motion.div)`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 30px;
@@ -395,8 +390,6 @@ const itemVariants = {
 }
 
 export default function Home() {
-    const { theme } = useTheme()
-
     return (
         <PageWrapper>
             <HeroSection>
@@ -413,15 +406,14 @@ export default function Home() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        Software Engineer & Full-Stack Developer
+                        Rehan Morani
                     </Title>
                     <Subtitle
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
                     >
-                        I build modern, scalable web applications with a focus on user experience and clean code.
-                        Let's create something amazing together.
+                        Software Engineer specializing in full-stack development, with a passion for building scalable and user-friendly applications.
                     </Subtitle>
                     <CTAButton
                         href="/resume"
@@ -431,19 +423,17 @@ export default function Home() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        View My Resume
-                        <ArrowRight />
+                        View Resume <ArrowRight />
                     </CTAButton>
                 </HeroContent>
             </HeroSection>
-
             <ProjectsSection>
                 <SectionContent>
                     <SectionTitle
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
                         transition={{ duration: 0.5 }}
+                        viewport={{ once: true }}
                     >
                         Featured Projects
                     </SectionTitle>
@@ -453,71 +443,10 @@ export default function Home() {
                         whileInView="visible"
                         viewport={{ once: true }}
                     >
-                        {projects.map((project, index) => (
-                            <ProjectCard
-                                key={project.title}
-                                variants={itemVariants}
-                            >
-                                <ProjectImage>
-                                    <img src={project.image} alt={project.title} />
-                                </ProjectImage>
-                                <ProjectContent>
-                                    <h3>{project.title}</h3>
-                                    <p>{project.description}</p>
-                                    <ProjectLinks>
-                                        {project.links.map(link => (
-                                            <ProjectLink
-                                                key={link.label}
-                                                href={link.href}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <link.icon />
-                                                {link.label}
-                                            </ProjectLink>
-                                        ))}
-                                    </ProjectLinks>
-                                    <ProjectTags>
-                                        {project.tags.map(tag => (
-                                            <ProjectTag key={tag}>{tag}</ProjectTag>
-                                        ))}
-                                    </ProjectTags>
-                                </ProjectContent>
-                            </ProjectCard>
-                        ))}
+                        {/* Project cards will go here */}
                     </ProjectGrid>
                 </SectionContent>
             </ProjectsSection>
-
-            <TechStackSection>
-                <SectionContent>
-                    <SectionTitle
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        Tech Stack
-                    </SectionTitle>
-                    <TechGrid
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                    >
-                        {techStack.map(tech => (
-                            <TechCard
-                                key={tech.title}
-                                variants={itemVariants}
-                            >
-                                <tech.icon />
-                                <h3>{tech.title}</h3>
-                                <p>{tech.description}</p>
-                            </TechCard>
-                        ))}
-                    </TechGrid>
-                </SectionContent>
-            </TechStackSection>
         </PageWrapper>
     )
 }

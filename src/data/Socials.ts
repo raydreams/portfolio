@@ -1,14 +1,14 @@
 import { SocialProps } from '~components/Shared/Social/types'
-import { faXTwitter, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
 const Socials: SocialProps[] = [
     {
-        icon: faXTwitter,
-        href: 'https://twitter.com/enjoyingsmain',
+        icon: faGithub,
+        href: 'https://github.com/rehanmorani',
     },
     {
-        icon: faGithub,
-        href: 'https://github.com/heyitsleo',
+        icon: faLinkedin,
+        href: 'https://linkedin.com/in/rehanmorani',
     },
 ]
 
