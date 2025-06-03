@@ -427,6 +427,7 @@ export default function Home() {
                     </CTAButton>
                 </HeroContent>
             </HeroSection>
+
             <ProjectsSection>
                 <SectionContent>
                     <SectionTitle
@@ -443,10 +444,71 @@ export default function Home() {
                         whileInView="visible"
                         viewport={{ once: true }}
                     >
-                        {/* Project cards will go here */}
+                        {projects.map((project) => (
+                            <ProjectCard
+                                key={project.title}
+                                variants={itemVariants}
+                            >
+                                <ProjectImage className="project-image">
+                                    <img src={project.image} alt={project.title} />
+                                </ProjectImage>
+                                <ProjectContent>
+                                    <h3>{project.title}</h3>
+                                    <p>{project.description}</p>
+                                    <ProjectLinks className="project-links">
+                                        {project.links.map((link) => (
+                                            <ProjectLink
+                                                key={link.label}
+                                                href={link.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <link.icon />
+                                                {link.label}
+                                            </ProjectLink>
+                                        ))}
+                                    </ProjectLinks>
+                                    <ProjectTags>
+                                        {project.tags.map((tag) => (
+                                            <ProjectTag key={tag}>{tag}</ProjectTag>
+                                        ))}
+                                    </ProjectTags>
+                                </ProjectContent>
+                            </ProjectCard>
+                        ))}
                     </ProjectGrid>
                 </SectionContent>
             </ProjectsSection>
+
+            <TechStackSection>
+                <SectionContent>
+                    <SectionTitle
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        viewport={{ once: true }}
+                    >
+                        Tech Stack
+                    </SectionTitle>
+                    <TechGrid
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
+                        {techStack.map((tech) => (
+                            <TechCard
+                                key={tech.title}
+                                variants={itemVariants}
+                            >
+                                <tech.icon />
+                                <h3>{tech.title}</h3>
+                                <p>{tech.description}</p>
+                            </TechCard>
+                        ))}
+                    </TechGrid>
+                </SectionContent>
+            </TechStackSection>
         </PageWrapper>
     )
 }

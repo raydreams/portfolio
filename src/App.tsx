@@ -15,14 +15,12 @@ import NotFound from '~routes/404'
 
 /** Context */
 import { ThemeProvider } from '~context/ThemeContext'
-
-/** Styles */
-import { GlobalStyle } from '~styles/global'
+import { GlobalStyles } from '~styles/global'
 
 export default function App() {
     return (
         <ThemeProvider>
-            <GlobalStyle />
+            <GlobalStyles />
             <BrowserRouter>
                 <ImageView />
                 <Layout>
