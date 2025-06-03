@@ -7,10 +7,13 @@ import { FileText } from 'lucide-react'
 import Lightbar from './Lightbar'
 import Footer from './Footer'
 import Logo from '~components/Shared/Logo'
+import ThemeToggle from '~components/Shared/ThemeToggle'
 
 const StyledLayout = styled('div')`
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-primary);
 `
 
 const Content = styled('main')`
@@ -20,6 +23,7 @@ const Content = styled('main')`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    flex: 1;
 `
 
 interface NavProps {
@@ -37,11 +41,11 @@ const Nav = styled('nav')<NavProps>`
     max-width: ${props => props.$isFloating ? '1200px' : 'none'};
 
     ${props => props.$isFloating ? `
-        background: rgba(255, 255, 255, 0.08);
+        background: var(--nav-bg);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        border: 1px solid var(--nav-border);
         border-radius: 30px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        box-shadow: var(--card-shadow);
     ` : `
         background: transparent;
     `}
@@ -86,30 +90,34 @@ const LogoWrapper = styled.div<LogoWrapperProps>`
 const NavLinks = styled('div')`
     display: flex;
     gap: 8px;
+    align-items: center;
 
     a {
-        color: var(--ui-lightgray);
+        color: var(--text-secondary);
         text-decoration: none;
         font-size: 15px;
         font-weight: 500;
         transition: all 0.3s ease;
         padding: 12px 24px;
         border-radius: 16px;
-        background: rgba(255, 255, 255, 0.03);
+        background: var(--card-bg);
         white-space: nowrap;
         display: flex;
         align-items: center;
         gap: 8px;
+        border: 1px solid var(--card-border);
 
         &:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            background: var(--bg-secondary);
             transform: translateY(-1px);
+            box-shadow: var(--card-shadow);
         }
 
         &.active {
-            color: white;
-            background: rgba(255, 255, 255, 0.12);
+            color: var(--accent-primary);
+            background: var(--bg-secondary);
+            border-color: var(--accent-primary);
         }
 
         svg {
@@ -170,8 +178,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                         </Link>
                         <Link to="/resume" className={location.pathname === '/resume' ? 'active' : ''}>
                             <FileText size={16} />
-                            Resume
                         </Link>
+                        <ThemeToggle />
                     </NavLinks>
                 </NavContent>
             </Nav>

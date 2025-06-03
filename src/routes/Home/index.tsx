@@ -1,13 +1,11 @@
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
+import { ArrowRight, Github, Globe, Code2, Terminal, Database, Server } from 'lucide-react'
 
 /** Components */
 import Logo from '~components/Shared/Logo'
-import Mail from '~components/Shared/Mail'
 import Social from '~components/Shared/Social'
-
-/** Typings */
-import { SocialProps } from '~components/Shared/Social/types'
+import { useTheme } from '~context/ThemeContext'
 
 /** Data */
 import Socials from '~data/Socials'
@@ -21,7 +19,7 @@ const PageWrapper = styled('div')`
     flex-direction: column;
 `
 
-const LandingSection = styled('section')`
+const HeroSection = styled('section')`
     min-height: 100vh;
     width: 100%;
     display: flex;
@@ -30,9 +28,14 @@ const LandingSection = styled('section')`
     padding: 100px 0;
     position: relative;
     overflow: hidden;
+    background: linear-gradient(
+        to bottom,
+        var(--bg-primary),
+        var(--bg-secondary)
+    );
 `
 
-const LandingContent = styled('div')`
+const HeroContent = styled('div')`
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
@@ -50,37 +53,89 @@ const LogoWrapper = styled(motion.div)`
     margin-bottom: 10px;
 `
 
-const SocialContainer = styled(motion.div)`
-    display: flex;
-    flex-direction: column;
+const Title = styled(motion.h1)`
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    background: linear-gradient(
+        135deg,
+        var(--accent-primary),
+        var(--accent-secondary)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+`
+
+const Subtitle = styled(motion.p)`
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.6;
+`
+
+const CTAButton = styled(motion.a)`
+    display: inline-flex;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
+    background: var(--accent-primary);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--accent-secondary);
+        transform: translateY(-2px);
+        box-shadow: var(--card-shadow);
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover svg {
+        transform: translateX(4px);
+    }
 `
 
-const SocialLinks = styled('div')`
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-`
-
-const ShowcaseSection = styled('section')`
+const ProjectsSection = styled('section')`
     width: 100%;
     padding: 100px 0;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--bg-secondary);
 `
 
-const ShowcaseContent = styled('div')`
+const SectionContent = styled('div')`
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 40px;
 `
 
 const SectionTitle = styled(motion.h2)`
-    font-size: 32px;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 40px;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 60px;
     text-align: center;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: var(--accent-primary);
+        border-radius: 2px;
+    }
 `
 
 const ProjectGrid = styled('div')`
@@ -90,17 +145,16 @@ const ProjectGrid = styled('div')`
 `
 
 const ProjectCard = styled(motion.div)`
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s ease;
     position: relative;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.05);
         transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        box-shadow: var(--card-shadow);
 
         .project-image {
             transform: scale(1.05);
@@ -130,45 +184,12 @@ const ProjectImage = styled('div')`
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    &:hover::after {
-        opacity: 1;
-    }
-`
-
-const ProjectLinks = styled('div')`
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    display: flex;
-    gap: 12px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    z-index: 1;
-`
-
-const ProjectLink = styled('a')`
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-
-    &:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            var(--bg-primary)
+        );
+        opacity: 0.7;
     }
 `
 
@@ -178,15 +199,47 @@ const ProjectContent = styled('div')`
     h3 {
         font-size: 24px;
         font-weight: 600;
-        color: white;
+        color: var(--text-primary);
         margin-bottom: 12px;
     }
 
     p {
-        color: var(--ui-lightgray);
+        color: var(--text-secondary);
         font-size: 15px;
         line-height: 1.6;
         margin-bottom: 20px;
+    }
+`
+
+const ProjectLinks = styled('div')`
+    display: flex;
+    gap: 12px;
+`
+
+const ProjectLink = styled('a')`
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: var(--accent-primary);
+        color: white;
+        border-color: var(--accent-primary);
+        transform: translateY(-2px);
+    }
+
+    svg {
+        width: 16px;
+        height: 16px;
     }
 `
 
@@ -194,31 +247,85 @@ const ProjectTags = styled('div')`
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-top: 16px;
 `
 
 const ProjectTag = styled('span')`
     padding: 6px 12px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bg-secondary);
+    border: 1px solid var(--card-border);
     border-radius: 20px;
     font-size: 13px;
-    color: var(--ui-lightgray);
+    color: var(--text-secondary);
     transition: all 0.3s ease;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: var(--accent-primary);
+        color: white;
+        border-color: var(--accent-primary);
         transform: translateY(-1px);
+    }
+`
+
+const TechStackSection = styled('section')`
+    width: 100%;
+    padding: 100px 0;
+    background: var(--bg-primary);
+`
+
+const TechGrid = styled('div')`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+`
+
+const TechCard = styled(motion.div)`
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--card-shadow);
+        border-color: var(--accent-primary);
+    }
+
+    svg {
+        width: 40px;
+        height: 40px;
+        color: var(--accent-primary);
+    }
+
+    h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    p {
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.6;
     }
 `
 
 const projects = [
     {
         title: "Portfolio Website",
-        description: "A modern, responsive portfolio website built with React, TypeScript, and Styled Components. Features smooth animations, dark theme, and a clean design.",
+        description: "A modern, responsive portfolio website built with React, TypeScript, and Styled Components. Features smooth animations, theme switching, and a clean design.",
         image: "/projects/portfolio.jpg",
         tags: ["React", "TypeScript", "Styled Components", "Framer Motion"],
         links: [
-            { label: "View Live", href: "https://morani.dev" },
-            { label: "Source Code", href: "https://github.com/heyitsleo/portfolio" }
+            { label: "View Live", href: "https://morani.dev", icon: Globe },
+            { label: "Source Code", href: "https://github.com/heyitsleo/portfolio", icon: Github }
         ]
     },
     {
@@ -227,8 +334,8 @@ const projects = [
         image: "/projects/task-manager.jpg",
         tags: ["Next.js", "Node.js", "MongoDB", "WebSocket"],
         links: [
-            { label: "View Demo", href: "https://tasks.morani.dev" },
-            { label: "Source Code", href: "https://github.com/heyitsleo/task-manager" }
+            { label: "View Demo", href: "https://tasks.morani.dev", icon: Globe },
+            { label: "Source Code", href: "https://github.com/heyitsleo/task-manager", icon: Github }
         ]
     },
     {
@@ -237,80 +344,139 @@ const projects = [
         image: "/projects/ai-art.jpg",
         tags: ["Python", "TensorFlow", "React", "AWS"],
         links: [
-            { label: "Try It Out", href: "https://ai-art.morani.dev" },
-            { label: "Source Code", href: "https://github.com/heyitsleo/ai-art-generator" }
+            { label: "Try It Out", href: "https://ai-art.morani.dev", icon: Globe },
+            { label: "Source Code", href: "https://github.com/heyitsleo/ai-art-generator", icon: Github }
         ]
     }
 ]
 
+const techStack = [
+    {
+        title: "Frontend Development",
+        description: "Building modern, responsive web applications with React, TypeScript, and modern CSS frameworks.",
+        icon: Code2
+    },
+    {
+        title: "Backend Development",
+        description: "Creating robust server-side applications using Node.js, Python, and various databases.",
+        icon: Server
+    },
+    {
+        title: "Database Design",
+        description: "Designing and implementing efficient database schemas and queries for optimal performance.",
+        icon: Database
+    },
+    {
+        title: "DevOps & Deployment",
+        description: "Setting up CI/CD pipelines, containerization, and cloud infrastructure for scalable applications.",
+        icon: Terminal
+    }
+]
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+}
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5
+        }
+    }
+}
+
 export default function Home() {
+    const { theme } = useTheme()
+
     return (
         <PageWrapper>
-            <LandingSection>
-                <LandingContent>
+            <HeroSection>
+                <HeroContent>
                     <LogoWrapper
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6 }}
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5 }}
                     >
                         <Logo />
                     </LogoWrapper>
-                    <SocialContainer
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                    <Title
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        <Mail to="morani.rehann@gmail.com" />
-                        <SocialLinks>
-                            {Socials.map((props: SocialProps, index: number) => (
-                                <Social
-                                    key={index}
-                                    icon={props.icon}
-                                    href={props.href}
-                                />
-                            ))}
-                        </SocialLinks>
-                    </SocialContainer>
-                </LandingContent>
-            </LandingSection>
+                        Software Engineer & Full-Stack Developer
+                    </Title>
+                    <Subtitle
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                    >
+                        I build modern, scalable web applications with a focus on user experience and clean code.
+                        Let's create something amazing together.
+                    </Subtitle>
+                    <CTAButton
+                        href="/resume"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.6 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        View My Resume
+                        <ArrowRight />
+                    </CTAButton>
+                </HeroContent>
+            </HeroSection>
 
-            <ShowcaseSection>
-                <ShowcaseContent>
+            <ProjectsSection>
+                <SectionContent>
                     <SectionTitle
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.5 }}
                     >
                         Featured Projects
                     </SectionTitle>
-                    <ProjectGrid>
+                    <ProjectGrid
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
                         {projects.map((project, index) => (
                             <ProjectCard
                                 key={project.title}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                variants={itemVariants}
                             >
-                                <ProjectImage className="project-image">
+                                <ProjectImage>
                                     <img src={project.image} alt={project.title} />
-                                    <ProjectLinks className="project-links">
-                                        {project.links.map(link => (
-                                            <ProjectLink 
-                                                key={link.label} 
-                                                href={link.href}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                {link.label}
-                                            </ProjectLink>
-                                        ))}
-                                    </ProjectLinks>
                                 </ProjectImage>
                                 <ProjectContent>
                                     <h3>{project.title}</h3>
                                     <p>{project.description}</p>
+                                    <ProjectLinks>
+                                        {project.links.map(link => (
+                                            <ProjectLink
+                                                key={link.label}
+                                                href={link.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <link.icon />
+                                                {link.label}
+                                            </ProjectLink>
+                                        ))}
+                                    </ProjectLinks>
                                     <ProjectTags>
                                         {project.tags.map(tag => (
                                             <ProjectTag key={tag}>{tag}</ProjectTag>
@@ -320,8 +486,38 @@ export default function Home() {
                             </ProjectCard>
                         ))}
                     </ProjectGrid>
-                </ShowcaseContent>
-            </ShowcaseSection>
+                </SectionContent>
+            </ProjectsSection>
+
+            <TechStackSection>
+                <SectionContent>
+                    <SectionTitle
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        Tech Stack
+                    </SectionTitle>
+                    <TechGrid
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
+                        {techStack.map(tech => (
+                            <TechCard
+                                key={tech.title}
+                                variants={itemVariants}
+                            >
+                                <tech.icon />
+                                <h3>{tech.title}</h3>
+                                <p>{tech.description}</p>
+                            </TechCard>
+                        ))}
+                    </TechGrid>
+                </SectionContent>
+            </TechStackSection>
         </PageWrapper>
     )
 }
